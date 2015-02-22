@@ -1,0 +1,128 @@
+[
+  {
+    "name": "bob",
+    "size": 3938,
+    "imports": [
+    	"alice","quetzlcoatl","nantucket jim"
+    ]
+  },
+  {
+    "name": "alice",
+    "size": 3812,
+    "imports": [
+    	"bob"
+    ]
+  },
+  {
+    "name": "jay",
+    "size": 6714,
+    "imports": [
+    	"tesla","pythagoras","darwin"
+    ]
+  },
+  {
+    "name": "tesla",
+    "size": 743,
+    "imports": [
+      "cantor", "jay","pythagoras","jamie lannister"
+    ]
+  },
+  {
+    "name": "cantor",
+    "size": 3534,
+    "imports": [
+    	"einstein","captain america"
+    ]
+  },
+  {
+    "name": "einstein",
+    "size": 5731,
+    "imports": [
+    	"archimedes", "pythagoras"
+    ]
+  },
+  {
+    "name": "archimedes",
+    "size": 7840,
+    "imports": [
+    	"pythagoras","einstein"
+    ]
+  },
+  {
+    "name": "pythagoras",
+    "size": 5914,
+    "imports": [
+    	"darwin"
+    ]
+  },
+  {
+    "name": "darwin",
+    "size": 3416,
+    "imports": [
+    	"jim", "pythagoras"
+    ]
+  },
+  {
+    "name": "jim",
+    "size": 7074,
+    "imports": [
+    	"bob", "alice","cantor"
+    ]
+  },
+  {
+    "name": "cleotus",
+    "size": 7074,
+    "imports": [
+    	"bob", "alice","cantor"
+    ]
+  },
+  {
+    "name": "jamie lannister",
+    "size": 3534,
+    "imports": [
+    	"einstein","trogdor","mahogany","quetzlcoatl"
+    ]
+  },
+  {
+    "name": "the black widow",
+    "size": 5731,
+    "imports": [
+    	"archimedes", "pythagoras"
+    ]
+  },
+  {
+    "name": "captain america",
+    "size": 7840,
+    "imports": [
+    	"pythagoras","einstein"
+    ]
+  },
+  {
+    "name": "quetzlcoatl",
+    "size": 5914,
+    "imports": [
+    	"darwin"
+    ]
+  },
+  {
+    "name": "trogdor",
+    "size": 3416,
+    "imports": [
+    	"jim", "pythagoras"
+    ]
+  },
+  {
+    "name": "nantucket jim",
+    "size": 7074,
+    "imports": [
+    	"bob", "alice","cantor"
+    ]
+  },
+  {
+    "name": "mahogany",
+    "size": 7074,
+    "imports": [
+    	"bob", "alice","cantor"
+    ]
+  }
+]

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.node {
+  stroke: #999;
+  /*stroke: #000;*/
+  /*fill: #000;*/
+  stroke-width: 0.7px;
+}
+
+.link {
+  stroke: #999; /*Line Color*/
+  stroke-opacity: 0.5;
+  stroke-width: 1.5px;
+}
+
+text {
+  font: 25px sans-serif,
+  pointer-events: none;
+}
+
+</style>
+<body style="background-color: #28303A">
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script>
+
+// Size of Board
+var width = 960, 
+    height = 500;
+
+var colors = ['rgba(255,255,204, 0.8)', 'rgba(255,237,160, 0.8)', 'rgba(254,217,118, 0.8)',
+                  'rgba(254,178,76, 0.8)', 'rgba(253,141,60, 0.8)', 'rgba(252,78,42, 0.8)',
+                  'rgba(227,26,28, 0.8)','rgba(189,0,38, 0.8)','rgba(128,0,38, 0.8)']
+var color = d3.scale.category10();
+
+var force = d3.layout.force()
+    .charge(-500)
+    .linkDistance(50)
+    .size([width, height]);
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+//d3.json("InfluenceNetworkAfter_final2.json", function(error, graph) {
+//d3.json("InfluenceNetworkBefore_final.json", function(error, graph) {
+d3.json("/static/SolutionNetworkBefore1.json", function(error, graph) {
+  force.nodes(graph.nodes)
+      .links(graph.links)
+      .start();
+
+  var link = svg.selectAll(".link")
+      .data(graph.links)
+    .enter().append("line")
+      .attr("class", "link")
+      .style("stroke-width", function(d) { return Math.sqrt(d.value); });
+
+  var node = svg.selectAll(".node")
+      .data(graph.nodes)
+      .enter().append('g')
+      .attr("class", "node")
+      .style('stroke', 'black')
+      .call(force.drag);
+
+      node.append("circle")
+      .attr("r", function(d){
+          if (d.name === 'Solution 1'||d.name === 'Solution 2'||d.name === 'Expert'){
+            return 20;
+
+          }else{
+            return 10;
+          }
+      })
+      .attr("id", function(d){return d.name})
+      .style("fill", function(d) { 
+        console.log(colors[d.group], d.name);
+        return colors[d.group]; });
+
+node.append("text")
+    .attr('x', 15)
+    .style("fill", function(d){return colors[d.group]})
+    .style("font-size", '30px')
+    .style('font-fanily', 'sans-serif')
+    .text(function(d) { return d.name; });
+
+  // node.append("title")
+  // .text(function(d) { return d.name; });
+
+  force.on("tick", function() {
+    link.attr("x1", function(d) { return d.source.x; })
+        .attr("y1", function(d) { return d.source.y; })
+        .attr("x2", function(d) { return d.target.x; })
+        .attr("y2", function(d) { return d.target.y; });
+
+ node
+      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+
+    // node.attr("cx", function(d) { return d.x; })
+    // .attr("cy", function(d) { return d.y; });
+  });
+});
+
+
+
+</script>

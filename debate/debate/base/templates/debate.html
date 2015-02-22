@@ -170,7 +170,36 @@ h1 small {
     line-height: 35px;
 }
 
+[class*=solution_] {
+    /*background: #E9632F;*/font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande";
+     border-radius: 25px;
+    box-shadow:10px 10px 5px #888888;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400;
 
+    padding: 0.8em;
+    font-size: 0.8em;
+    margin: 0;
+
+    font-size: 32px;
+    line-height: 30px;
+}
+
+.solution_1 {
+
+    background: rgba(254,178,76, 0.6);
+}
+
+
+.solution_3 {
+    
+    background: rgba(128,0,38, 0.6);
+}
+.solution_2 {
+    
+    background: rgba(255,237,160, 0.6);
+}
 .solution-text {
 
     color: #000;
@@ -238,8 +267,10 @@ $(document).ready(function(){
 
     $("input").keypress(function(event){
         if(event.keyCode == 13){
+
+                var _class = "solution_" + this.className;
             $("#comments").append(
-                '<div class="alt-item"> <p class="comments"> ' + $(this).val()+' </p></div>');
+                '<div class="alt-item"> <p class="comments '+ _class+'"> ' + $(this).val()+' </p></div>');
         }
 
     })   
@@ -259,9 +290,9 @@ $(document).ready(function(){
         <div class="column size-1of1 solutions">
         {% for solution in solutions %}
             <div class="main-item">
-                <p class="solution-text">
+                <p class="solution-text solution_{{solution.pk}}">
                     {{ forloop.counter0|add:"1"}}) {{ solution.text }}
-                    <input id="input_{{solution.pk}}" type="text">
+                    <input class="{{solution.pk}}" type="text">
                 </p>
 
             </div>
@@ -276,7 +307,7 @@ $(document).ready(function(){
                 {% for comment in solution_comments %}
                     <div class="alt-item">
                         <p>{{forloop.counter0|add:"1"}}</p>
-                        <p class="comments"> {{comment.text}} </p>
+                        <p class="comments solution_{{forloop.counter0|add:"1"}}"> {{comment.text}} </p>
                     </div>
                     {% for nested_comment in comment.nested_comments %}
                         <div class="alt-item">

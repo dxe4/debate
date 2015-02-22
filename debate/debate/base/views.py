@@ -8,6 +8,7 @@ from rest_framework import serializers
 
 
 class CommentSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Comment
         fields = ('text',)
@@ -45,3 +46,57 @@ class CreateTag(ListCreateAPIView):
     def post(self, request, *args, **kwargs):
         print(args, kwargs)
         return self.create(request, *args, **kwargs)
+
+
+class DendogramView(TemplateView):
+    template_name = 'Dendrogram.html'
+    http_method_names = ['get']
+
+
+class NetworkVisualizerBeforeView(TemplateView):
+    template_name = 'NetworkVisualizerBefore.html'
+    http_method_names = ['get']
+
+
+class NetworkVisualizerAfterView(TemplateView):
+    template_name = 'NetworkVisualizerAfter.html'
+    http_method_names = ['get']
+
+
+class NetworkVisualizerSolutionsBefore1View(TemplateView):
+    template_name = 'NetworkVisualizerSolutionsBefore1.html'
+    http_method_names = ['get']
+
+
+class NetworkVisualizerSolutionsAfter1View(TemplateView):
+    template_name = 'NetworkVisualizerSolutionsAfter1.html'
+    http_method_names = ['get']
+
+
+class RegionsView(TemplateView):
+    template_name = 'regions.html'
+    http_method_names = ['get']
+
+
+class VetoFinalView(TemplateView):
+    template_name = 'veto_final.html'
+    http_method_names = ['get']
+
+
+class Index(TemplateView):
+    template_name = 'index.html'
+    http_method_names = ['get']
+
+    def get_context_data(self, **kwargs):
+        urls = [
+            'dendogram',
+            'network-before',
+            'network-after',
+            'network-solutions-before',
+            'network-solutions-after',
+            'regions',
+            'veto',
+        ]
+        return {
+            'urls': urls
+        }
