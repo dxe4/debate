@@ -11,8 +11,10 @@ class DebateView(TemplateView):
     def get_context_data(self, **kwargs):
         pk = kwargs['id']
         debate = get_object_or_404(
-            Debate.objects.select_related('debate_comments'), pk=pk
+            Debate.objects.select_related('solutions'), pk=pk
         )
+        print(debate.solutions.all())
         return {
-            'debate': debate
+            'debate': debate,
+            'solutions': debate.solutions.all()
         }

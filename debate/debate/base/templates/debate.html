@@ -193,13 +193,11 @@ h1 small {
 
         <div class="column size-1of1 debate">
             <div class="main-item">
-                <p class="main-text"> We need an easy way to debate on the internet </p>
+                <p class="main-text"> {{debate.title}} </p>
             </div>
 
             <div class="main-item">
-                <p class="main-text"> We need an easy way to debate on the internet
-                     We need an easy way to debate on the internet
-                     We need an easy way to debate on the internet
+                <p class="main-text"> {{debate.description}}
                 </p>
             </div>
 
@@ -207,18 +205,13 @@ h1 small {
 
 
         <div class="column size-1of1 solutions">
-
+        {% for solution in solutions %}
             <div class="main-item">
-                <p class="solution-text"> 1) Lest make a webssite to solve this foo ofooo foo </p>
+                <p class="solution-text">
+                    {{ forloop.counter0 }}) {{ solution.text }}
+                </p>
             </div>
-
-            <div class="main-item">
-                <p class="solution-text"> 2) Lest sell the website and become rich </p>
-            </div>
-
-            <div class="main-item">
-                <p class="solution-text"> 3) Lest move to hawaii and code all day </p>
-            </div>
+        {% endfor %}
         </div>
         
         <div class="column size-1of3 empty-space">
