@@ -3,10 +3,38 @@
 <script type="text/javascript" src="salvatore.js"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css"></script>
 
 </head>
 <style>
+
+.solution-text{
+
+border-style:solid;
+border-width:1px;
+
+}
+
+.main-item:first-of-class{
+    border-style:solid;
+
+border-width:2px;
+
+
+}
+
+
+.main-item:nth-of-class(2){
+
+
+}
+.main-text:first-of-type{
+
+    font-size: 35px;
+
+}
+
+
+
 /*
    Spezific styling for salvattore
    Feel free to edit it as you like
@@ -75,15 +103,17 @@ img,object,embed {
 body {
     max-width: 1050px;
     margin: 0 auto;
-    font-family: Baskerville, "Baskerville Old Face", "Hoefler Text", Garamond, "Times New Roman", serif;
+ font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+   font-weight: 300;
     font-size: 100%;
     line-height: 1.4em;
-    background: rgba(97, 29, 0, 0.6);
+    background: rgba(145, 197, 174, 0.6);
     color: #FFF;
 }
 
 h1 {
-    font-family: Impact, Haettenschweiler, "Franklin Gothic Bold", Charcoal, "Helvetica Inserat", "Bitstream Vera Sans Bold", "Arial Black", sans serif;
+font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+
     font-size: 4.5em;
     font-weight: bold;
     letter-spacing: 0.05em;
@@ -112,29 +142,41 @@ h1 small {
 
 
 .main-text {
-
-    /*background: rgba(116,49,21, 0.5);*/
-
     color: #000;
-    font-family: 'Brush Script MT', cursive;
+    font-family: "Helvetica Neue",Helvetica,Arial;
+
     font-style: normal;
     font-variant: normal;
-    font-weight: 400;
-
+    font-weight: 500;
     padding: 0.8em;
-    font-size: 0.8em;
+    font-size: 1.8em;
     margin: 0;
-
-    font-size: 35px;
-    line-height: 30px;
+    border-width:1px;
+    line-height: 37px;
 
 }
+
+
+.main-text-2 {
+    color: #000;
+    font-family: "Helvetica Neue",Helvetica,Arial;
+
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 1000;
+
+    font-size: 1.8em;
+    margin: 0;
+    line-height: 35px;
+}
+
 
 .solution-text {
 
     color: #000;
-    /*background: #E9632F;*/
-    font-family: 'Brush Script MT', cursive;
+    /*background: #E9632F;*/font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande";
+     border-radius: 25px;
+    box-shadow:10px 10px 5px #888888;
     font-style: normal;
     font-variant: normal;
     font-weight: 400;
@@ -187,29 +229,41 @@ h1 small {
 .solutions {
 }
 
-
 </style>
+
     <body>
+
+<script>
+$(document).ready(function(){
+
+    $("input").keypress(function(event){
+        if(event.keyCode == 13){
+            $("#comments").append(
+                '<div class="alt-item"> <p class="comments"> ' + $(this).val()+' </p></div>');
+        }
+
+    })   
+});
+</script>
 
         <div class="column size-1of1 debate">
             <div class="main-item">
-                <p class="main-text"> {{debate.title}} </p>
+                <h1 class="main-text-2"> {{debate.title}} </p>
             </div>
 
             <div class="main-item">
                 <p class="main-text"> {{debate.description}}
                 </p>
             </div>
-
         </div>
-
-
         <div class="column size-1of1 solutions">
         {% for solution in solutions %}
             <div class="main-item">
                 <p class="solution-text">
-                    {{ forloop.counter0 }}) {{ solution.text }}
+                    {{ forloop.counter0|add:"1"}}) {{ solution.text }}
+                    <input id="input_{{solution.pk}}" type="text">
                 </p>
+
             </div>
         {% endfor %}
         </div>
@@ -217,75 +271,22 @@ h1 small {
         <div class="column size-1of3 empty-space">
         </div>  
 
-        <div class="column size-1of2 comment-row">
-            <div class="alt-item">
-                <p class="comments"> Comment A </p>
-            </div>
-
-            <div class="alt-item">
-                <p class="comments"> Comment B </p>
-            </div>
-        
+        <div id="comments" class="column size-1of1 comment-row">
+            {% for count, solution_comments in comments %}
+                {% for comment in solution_comments %}
+                    <div class="alt-item">
+                        <p>{{forloop.counter0|add:"1"}}</p>
+                        <p class="comments"> {{comment.text}} </p>
+                    </div>
+                    {% for nested_comment in comment.nested_comments %}
+                        <div class="alt-item">
+                            <p class="comments"> {{nested_comment.text}} </p>
+                        </div>
+                    {% endfor %}
+                    <input type="text">
+                {% endfor %}
+            {% endfor %}
         </div>
-
-
-        <div class="column size-1of2 comment-row">
-            <div class="alt-item">
-                <p class="comments"> Comment A </p>
-            </div>
-
-            <div class="alt-item">
-                <p class="comments"> Comment B </p>
-            </div>
-        
-        </div>
-
-
-        <div class="column size-1of2 comment-row">
-            <div class="alt-item">
-                <p class="comments"> Comment A </p>
-            </div>
-
-            <div class="alt-item">
-                <p class="comments"> Comment B </p>
-            </div>
-        
-        </div>
-
-
-
-        <div class="column size-1of2 comment-row">
-            <div class="alt-item">
-                <p class="comments"> Comment A </p>
-            </div>
-
-            <div class="alt-item">
-                <p class="comments"> Comment B </p>
-            </div>
-        
-        </div>
-        <div class="column size-1of2 comment-row">
-            <div class="alt-item">
-                <p class="comments"> Comment A </p>
-            </div>
-
-            <div class="alt-item">
-                <p class="comments"> Comment B </p>
-            </div>
-        
-        </div>
-
-        <div class="column size-1of2 comment-row">
-            <div class="alt-item">
-                <p class="comments"> Comment A </p>
-            </div>
-
-            <div class="alt-item">
-                <p class="comments"> Comment B </p>
-            </div>
-        
-        </div>
-
 
     </body>
 </html>

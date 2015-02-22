@@ -18,6 +18,16 @@ class Solution(models.Model):
     text = models.CharField(max_length=300)
     debate = models.ForeignKey(Debate, related_name='solutions')
 
+    def all_comments(self):
+        comments = self.solution_comments.all() \
+            .select_related('comment_comments')
+        comments = list(comments)
+
+        for comment in comments:
+            comment.nested_comments = comment.comment_comments.all()
+
+        return comments
+
 
 class Comment(models.Model):
     text = models.CharField(max_length=200)
@@ -30,7 +40,8 @@ class Comment(models.Model):
         blank=True, null=True
     )
     author = models.ForeignKey(
-        User, related_name='user_comments'
+        User, related_name='user_comments',
+        null=True, blank=True
     )
 
 

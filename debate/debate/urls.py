@@ -6,5 +6,5 @@ urlpatterns = patterns(
     '',
     url(r'^debate/(?P<title>[\w-]+)-(?P<id>[0-9]+)$',
         DebateView.as_view(), name='debate'),
-    # url(r'$^', include('base.urls')),
+    url('', include('social.apps.django_app.urls', namespace='social')),
 )
